@@ -1,6 +1,4 @@
 package GoingToPath;
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +34,8 @@ public class GoPathTester {
 		}
 		System.out.println();
 		
-		GoPath.goPath(points);
+		GoPath goPath = new GoPath(points);
+		goPath.goThroughPath();
 	}
 
 }

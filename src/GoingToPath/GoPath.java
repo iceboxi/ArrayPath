@@ -4,45 +4,69 @@ import java.util.List;
 
 
 public class GoPath {
-	public static int count = 1;
-	public static void goPath(List<List<String>> points) {
-		List<Integer> path = new ArrayList<Integer>();
-		int flag = points.size()-1;
-		
-		for (int i = 0; i < points.size(); i++) {
-			path.add(0);
-		}
-		
+	private List<List<String>> points;
+	private List<Integer> path;
+	private int addendFlag;
+	
+	public GoPath(List<List<String>> points) {
+		this.points = points;
+		initPath();
+		resetAddendFlag();
+	}
+	
+	public void goThroughPath() {
 		while (true) {
 			printPath(path);
-			path.set(flag, path.get(flag)+1);
-			while (true) {
-				if (path.get(flag) == points.get(flag).size()) {
-					path.set(flag, 0);
-					flag--;
-					if (flag < 0) {
-						break;
-					}
-					path.set(flag, path.get(flag)+1);
-				}else {
-					flag = points.size()-1;
-					break;
-				}
-			}
 			
-			if (flag < 0) {
+			goToNextPoint();
+			checkNumberCarray();
+			
+			if (isOutOfDigit()) {
 				break;
 			}
 		}
 	}
 	
-	public static void printPath(List<Integer> path) {
+	public void printPath(List<Integer> path) {
 		// path等於要去points拿的位置的排列
-		
-		System.out.println("count = " + count++);
 		for (int i = 0; i < path.size(); i++) {
 			System.out.print(path.get(i) + ", ");
 		}
 		System.out.println();
+	}
+	
+	private boolean isOutOfDigit() {
+		return addendFlag<0 ? true : false;
+	}
+	
+	private void goToNextPoint() {
+		path.set(addendFlag, path.get(addendFlag)+1);
+	}
+	
+	private void checkNumberCarray() {
+		while (true) {
+			if (path.get(addendFlag) == points.get(addendFlag).size()) {
+				path.set(addendFlag, 0);
+				addendFlag--;
+				if (addendFlag < 0) {
+					break;
+				}
+				path.set(addendFlag, path.get(addendFlag)+1);
+			}else {
+				resetAddendFlag();
+				break;
+			}
+		}
+	}
+	
+	private void initPath() {
+		path = new ArrayList<Integer>();
+		for (int i = 0; i < points.size(); i++) {
+			path.add(0);
+		}
+	}
+	
+	private void resetAddendFlag() {
+		addendFlag = points.size()-1;
 	}
 }
