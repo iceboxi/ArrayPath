@@ -15,15 +15,11 @@ public class GoPath {
 	}
 	
 	public void goThroughPath() {
-		while (true) {
+		while (!isOutOfDigit()) {
 			printPath(path);
 			
 			goToNextPoint();
 			checkNumberCarray();
-			
-			if (isOutOfDigit()) {
-				break;
-			}
 		}
 	}
 	
