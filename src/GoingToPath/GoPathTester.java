@@ -9,18 +9,11 @@ import org.junit.Test;
 
 
 public class GoPathTester {
-
+	private List<List<String>> points;
+	
 	@Before
 	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
-	@Test
-	public void test() {
-		List<List<String>> points = new ArrayList<List<String>>();
+		points = new ArrayList<List<String>>();
 		int size1 = (int)(Math.random()*5+1);
 		System.out.println(size1);
 		for (int i = 0; i < size1; i++) {
@@ -33,8 +26,22 @@ public class GoPathTester {
 			points.add(strings);
 		}
 		System.out.println();
-		
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		points = null;
+	}
+
+	@Test
+	public void test() {
 		GoPath goPath = new GoPath(points);
+		goPath.goThroughPath();
+	}
+	
+	@Test
+	public void testRecursive() {
+		GoPathRecursive goPath = new GoPathRecursive(points);
 		goPath.goThroughPath();
 	}
 
