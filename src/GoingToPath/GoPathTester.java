@@ -13,24 +13,8 @@ public class GoPathTester {
 	
 	@Before
 	public void setUp() throws Exception {
-		points = new ArrayList<List<String>>();
-		int size1 = (int)(Math.random()*5+1);
-		System.out.println(size1);
-		for (int i = 0; i < size1; i++) {
-			List<String> strings = new ArrayList<String>();
-			int size2 = (int)(Math.random()*5+1);
-			System.out.print(size2 + " ");
-			for (int j = 0; j < size2; j++) {
-				strings.add(String.valueOf((Math.random()*10)));
-			}
-			points.add(strings);
-		}
-		System.out.println();
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		points = null;
+		initPoints();
+		printPointsInfo();
 	}
 
 	@Test
@@ -45,4 +29,33 @@ public class GoPathTester {
 		goPath.goThroughPath();
 	}
 
+	private void initPoints() {
+		points = new ArrayList<List<String>>();
+		int pathLength = (int)(Math.random()*5+1);
+		
+		for (int i = 0; i < pathLength; i++) {
+			List<String> strings = new ArrayList<String>();
+			int choiceOfPoint = (int)(Math.random()*5+1);
+			
+			for (int j = 0; j < choiceOfPoint; j++) {
+				// we don't care what does strings have
+				strings.add(String.valueOf((Math.random()*10)));
+			}
+			points.add(strings);
+		}
+	}
+	
+	private void printPointsInfo() {
+		System.out.println("size of points: " + points.size());
+		System.out.print("paths: ");
+		for (List<String> strings : points) {
+			System.out.print(strings.size() + ", ");
+		}
+		System.out.println();
+	}
+	
+	@After
+	public void tearDown() throws Exception {
+		points = null;
+	}
 }
