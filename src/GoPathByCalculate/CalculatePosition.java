@@ -13,13 +13,7 @@ public class CalculatePosition {
 		int totalPoints = getTotalNumber();
 		
 		for (int i = 0; i < totalPoints; i++) {
-			int position = i;
-			String path = "";
-			
-			for (List<String> point : points) {
-				path += String.format(" %d", position%point.size());
-				position /= point.size();
-			}
+			String path = getPathWithStep(i);
 			
 			System.out.println(path);
 		}
@@ -34,5 +28,16 @@ public class CalculatePosition {
 		}
 		
 		return totalPoints;
+	}
+	
+	private String getPathWithStep(int position) {
+		String path = "";
+		
+		for (List<String> point : Reverse.reversed(points)) {
+			path = String.format("%d %s", position%point.size(), path);
+			position /= point.size();
+		}
+		
+		return path;
 	}
 }
